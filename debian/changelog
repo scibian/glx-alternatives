@@ -1,3 +1,9 @@
+glx-alternatives (0.8.3~bpo9+1sci9+nv390u2) scibian9+nv390; urgency=medium
+
+  * Scibianization
+
+ -- Rémi Palancher <remi-externe.palancher@edf.fr>  Wed, 16 May 2018 11:15:13 +0200
+
 glx-alternatives (0.8.3~bpo9+1sci9+nv390u1) scibian9+nv390; urgency=medium
 
   * Rebuild for scibian9+nv390.
