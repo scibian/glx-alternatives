@@ -42,6 +42,7 @@ then
 	add_multiarch_diversion libGLESv2.so.2 /usr/lib /usr/lib/mesa-diverted
 	add_multiarch_diversion libGLESv2.so.2.0.0 /usr/lib /usr/lib/mesa-diverted
 	add_multiarch_diversion libGLESv2.so.2.1.0 /usr/lib /usr/lib/mesa-diverted
+	add_multiarch_diversion libGLX_indirect.so.0 /usr/lib /usr/lib/mesa-diverted
 
 fi
 
@@ -85,7 +86,11 @@ if [ "$1" = "configure" ]; then
 
 	# do some validation of the diverted libGL.so and libGL.so.1
 	for triplet in $TRIPLETS ; do
-		validate_diverted_symlink /usr/lib${triplet}libGL.so /usr/lib/mesa-diverted${triplet}libGL.so libGL.so.1
+		for target in libGL.so.1.7.0 libGL.so.1 NONE
+		do
+			test ! -f /usr/lib/mesa-diverted${triplet}${target} || break
+		done
+		validate_diverted_symlink /usr/lib${triplet}libGL.so /usr/lib/mesa-diverted${triplet}libGL.so ${target}
 		# the symlink should point to the newest (libglvnd > mesa > ancient whatever) file that we have diverted
 		for target in libGL.so.1.7.0 libGL.so.1.0.0 libGL.so.1.2.0 libGL.so.1.2 NONE
 		do
@@ -103,6 +108,12 @@ if [ "$1" = "configure" ]; then
 	dpkg-trigger register-glx-alternative-mesa
 	dpkg-trigger /usr/lib/libGL.so.1
 	dpkg-trigger /usr/lib/libGL.so
+
+	# put all packages shipping the diverted files in triggers-awaited state
+	for package in libgl1 libegl1 libgles1 libgles2 libgl1-mesa-glx libegl1-mesa libgles1-mesa libgles2-mesa libglx-mesa0
+	do
+		dpkg-trigger --by-package=${package} register-glx-alternative-mesa
+	done
 
 	dpkg-trigger --no-await ldconfig
 

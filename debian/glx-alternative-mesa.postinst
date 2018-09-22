@@ -26,6 +26,7 @@ add_multiarch_slave()
 	source_dir="$4"
 	source_sub_dir="$5"
 	prefix="$6"
+	srcfile="${7:-$file}"
 
 	for triplet in $TRIPLETS ; do
 		# s|/$||; s|^/|-|;
@@ -34,7 +35,7 @@ add_multiarch_slave()
 		add_slave \
 			"${target_dir}${triplet}${target_sub_dir}${file}" \
 			"${prefix}${file}${suffix}" \
-			"${source_dir}${triplet}${source_sub_dir}${file}"
+			"${source_dir}${triplet}${source_sub_dir}${srcfile}"
 	done
 }
 
@@ -53,9 +54,13 @@ setup_alternatives()
 		$(add_multiarch_slave /usr/lib "" libGLESv1_CM.so.1 /usr/lib/mesa-diverted)
 		$(add_multiarch_slave /usr/lib "" libGLESv2.so.2 /usr/lib/mesa-diverted)
 "
+	slave_indirect=
+	if ! update-alternatives --query nvidia 2>/dev/null | grep -q nvidia--libGLX_indirect.so.0- ; then
+		slave_indirect="$(add_multiarch_slave /usr/lib "" libGLX_indirect.so.0 /usr/lib "" "" libGLX_mesa.so.0)"
+	fi
 
 	if echo "$slaves" | grep -q "slave" ; then
-		update-alternatives --install /usr/lib/glx glx /usr/lib/mesa-diverted 5 $slaves
+		update-alternatives --install /usr/lib/glx glx /usr/lib/mesa-diverted 5 $slaves $slave_indirect
 	else
 		update-alternatives --remove glx /usr/lib/mesa-diverted
 	fi
