@@ -1,3 +1,57 @@
+glx-alternatives (0.8.8~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Sat, 22 Sep 2018 21:02:28 +0200
+
+glx-alternatives (0.8.8) unstable; urgency=medium
+
+  * glx-diversions: Put all packages that had shared libraries diverted into
+    triggers-awaited state to ensure the triggers in glx-alternative-mesa
+    setting up the glx alternative get processed earlier.  (Closes: #905908)
+  * Bump Standards-Version to 4.2.1. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 05 Sep 2018 12:04:55 +0200
+
+glx-alternatives (0.8.7~bpo9+1) stretch-backports; urgency=medium
+
+  * Rebuild for stretch-backports.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 06 Aug 2018 02:33:08 +0200
+
+glx-alternatives (0.8.7) unstable; urgency=medium
+
+  * Update validation of the diverted libGL.so symlink.
+
+ -- Andreas Beckmann <anbe@debian.org>  Tue, 31 Jul 2018 17:27:59 +0200
+
+glx-alternatives (0.8.6) unstable; urgency=medium
+
+  * glx-alternative-mesa: libGLX_mesa.so.0 is not diverted and therefore not
+    an indicator to install the alternative.  (Closes: #904486)
+
+ -- Andreas Beckmann <anbe@debian.org>  Thu, 26 Jul 2018 13:55:24 +0200
+
+glx-alternatives (0.8.5) unstable; urgency=medium
+
+  * Avoid confusing diagnostic message if no nvidia alternative is available.
+
+ -- Andreas Beckmann <anbe@debian.org>  Wed, 18 Jul 2018 19:30:23 +0200
+
+glx-alternatives (0.8.4) unstable; urgency=medium
+
+  * Add diversion and alternative for libGLX_indirect.so.0.
+  * Bump Standards-Version to 4.1.5. No changes needed.
+
+ -- Andreas Beckmann <anbe@debian.org>  Mon, 16 Jul 2018 16:26:25 +0200
+
+glx-alternatives (0.8.3~deb9u1) stretch; urgency=medium
+
+  * Rebuild for stretch.
+  * Revert to debhelper compat level 9.
+
+ -- Andreas Beckmann <anbe@debian.org>  Fri, 04 May 2018 23:41:35 +0200
+
 glx-alternatives (0.8.3~bpo9+1sci8+tl396u1) scibian8+tl396; urgency=medium
 
   * Backport to scibian8+tl396.

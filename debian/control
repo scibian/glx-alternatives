@@ -60,6 +60,9 @@ Recommends:
  glx-diversions,
 Suggests:
  libgl1-mesa-glx | libgl1,
+Breaks:
+# libGLX_indirect.so.0 alternative
+ nvidia-alternative (<< 390.67-3~),
 Description: allows the selection of MESA as GLX provider
  In setups with several GLX providers (e.g. the free MESA implementation and
  proprietary graphics hardware vendor implementations) this metapackage
@@ -88,7 +91,7 @@ Breaks:
 # does not use the nvidia/bumblebee glx alternative
  bumblebee-nvidia (<< 3.2.1-10~),
 # old-style modprobe configuration snippets
- nvidia-alternative (<< 352.55),
+# nvidia-alternative (<< 352.55),
  nvidia-legacy-340xx-alternative (<< 340.93-2~),
  nvidia-legacy-304xx-alternative (<< 304.132-1~),
 # ancient drivers
@@ -96,6 +99,8 @@ Breaks:
  nvidia-alternative-legacy-173xx (<< 304),
  nvidia-alternative-legacy-96xx (<< 304),
  nvidia-alternative-legacy-71xx (<< 304),
+# libGLX_indirect.so.0 alternative
+ nvidia-alternative (<< 390.67-3~),
 Description: allows the selection of NVIDIA as GLX provider
  In setups with several GLX providers (e.g. the free MESA implementation and
  proprietary graphics hardware vendor implementations) this metapackage
