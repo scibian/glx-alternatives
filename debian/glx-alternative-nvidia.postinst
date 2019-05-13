@@ -37,6 +37,7 @@ add_multiarch_slave()
 	source_dir="$4"
 	source_sub_dir="$5"
 	prefix="$6"
+	srcfile="${7:-$file}"
 
 	for triplet in $TRIPLETS ; do
 		# s|/$||; s|^/|-|;
@@ -45,7 +46,7 @@ add_multiarch_slave()
 		add_slave \
 			"${target_dir}${triplet}${target_sub_dir}${file}" \
 			"${prefix}${file}${suffix}" \
-			"${source_dir}${triplet}${source_sub_dir}${file}"
+			"${source_dir}${triplet}${source_sub_dir}${srcfile}"
 	done
 }
 
@@ -92,6 +93,7 @@ setup_alternatives()
 		$(search_multiarch_slave libGL.so.1 nvidia)
 		$(add_multiarch_slave /usr/lib "" libXvMCNVIDIA.so.1 /usr/lib nvidia/)
 		$(add_multiarch_slave /usr/lib "" libXvMCNVIDIA_dynamic.so.1 /usr/lib nvidia/)
+		$(add_multiarch_slave /usr/lib "" libGLX_indirect.so.0 /usr/lib "" "" libGLX_nvidia.so.0)
 "
 	libEGL_nvidia_slaves="
 		$(search_multiarch_slave libEGL.so.1 nvidia)
@@ -100,6 +102,7 @@ setup_alternatives()
 "
 	libGL_mesa_slaves="
 		$(search_multiarch_slave libGL.so.1)
+		$(add_multiarch_slave /usr/lib "" libGLX_indirect.so.0 /usr/lib "" "" libGLX_mesa.so.0)
 "
 	libEGL_mesa_slaves="
 		$(search_multiarch_slave libEGL.so.1)
@@ -109,6 +112,7 @@ setup_alternatives()
 	xorg_slaves="
 		$xorg_enabler
 		$(add_slave /usr/lib/xorg/modules/linux/libglx.so linux-libglx.so /usr/lib/nvidia/libglx.so)
+		$(add_slave /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so libglxserver_nvidia.so /usr/lib/nvidia/libglxserver_nvidia.so)
 "
 	xorg_conf_slaves=""
 	if echo "$xorg_enabler" | grep -q "slave" ; then

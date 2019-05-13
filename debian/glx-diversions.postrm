@@ -54,6 +54,7 @@ if [ "$1" = "remove" ]; then
 	remove_multiarch_diversion libGLESv2.so.2.0.0 /usr/lib /usr/lib/mesa-diverted
 	remove_multiarch_diversion libGLESv2.so.2 /usr/lib /usr/lib/mesa-diverted
 	remove_multiarch_diversion libGLESv2.so /usr/lib /usr/lib/mesa-diverted
+	remove_multiarch_diversion libGLX_indirect.so.0 /usr/lib /usr/lib/mesa-diverted
 
 	for triplet in $TRIPLETS ; do
 		rmdir /usr/lib/mesa-diverted${triplet} 2>/dev/null || true

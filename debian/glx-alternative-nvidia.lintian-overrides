@@ -4,5 +4,6 @@ maintscript-calls-ldconfig postinst
 package-contains-empty-directory usr/lib/nvidia/bumblebee/
 # The alternatives put slave links in these directories.
 package-contains-empty-directory usr/lib/xorg/modules/drivers/
+package-contains-empty-directory usr/lib/xorg/modules/extensions/
 package-contains-empty-directory usr/lib/xorg/modules/linux/
 package-contains-empty-directory usr/share/X11/xorg.conf.d/
